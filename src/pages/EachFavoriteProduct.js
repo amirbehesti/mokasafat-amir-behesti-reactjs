@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { MdFavorite, MdDeleteOutline } from "react-icons/md";
-import { deleteProduct } from "../redux/actions/productActions";
+import { MdFavorite } from "react-icons/md";
 import { addDeleteFavorite } from "../redux/actions/favoriteAction";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-function EachProduct({ item }) {
+function EachFavoriteProduct({ item }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const data = useSelector((state) => state);
@@ -41,14 +40,8 @@ function EachProduct({ item }) {
             size="20px"
           />
         </span>
-        <span
-          title="Delete item?"
-          onClick={() => dispatch(deleteProduct(item._id))}
-        >
-          <MdDeleteOutline className="icon" size="20px" />
-        </span>
       </div>
     </div>
   );
 }
-export default EachProduct;
+export default EachFavoriteProduct;

@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import {Routes,Route} from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { favoriteProducts } from "./redux/actions/favoriteAction";
 import { getProductsData } from "./redux/actions/productActions";
 import { getCatagoriesData } from "./redux/actions/catagoriesActions";
 import "./App.css";
 import Header from "./pages/Header";
 import Products from "./pages/Products";
 import DetailPage from "./pages/DetailPage";
-
+import FavoritesPage from "./pages/FavoritesPage";
+import AddNewProduct from "./pages/AddNewProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,8 +21,16 @@ function App() {
     const getCatagories = async () => {
       await dispatch(getCatagoriesData());
     };
+    const updateFavorites = async()=>{
+      const fromLocal = await localStorage.getItem("favorites");
+      if(fromLocal){
+          const data = JSON.parse(fromLocal);
+          dispatch(favoriteProducts(data));
+      }
+    };
     getCatagories();
     getData();
+    updateFavorites();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -31,6 +41,8 @@ function App() {
           <Route path='/' element={<Products/>}/>
           <Route path='/products' element={<Products/>}/>
           <Route path='/products/:id' element={<DetailPage/>}/>
+          <Route path='/favorites' element={<FavoritesPage/>}/>
+          <Route path='/addnew' element={<AddNewProduct/>}/>
        </Routes>
     </div>
   );

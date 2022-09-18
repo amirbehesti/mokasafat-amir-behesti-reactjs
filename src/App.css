@@ -1,15 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 .App {
   text-align: center;
   margin: 0px 0%;
+  font-family: 'Poppins', sans-serif;
 }
 .header {
   height: 70px;
-  /* border: 3px solid #6807c8; */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 0 8px 3px rgba(0,0,0,.15);
+}
+button{
+  font-family: 'Poppins', sans-serif;
 }
 
 .filter-favorites {
@@ -18,17 +22,43 @@
   align-items: center;
   justify-content: space-between;
   margin-right: 20px;
-  min-width: 400px;
+  width: auto;
+}
+.fav-add-btn{
+  display: flex;
+  background-color: black;
+  padding: 8px 25px;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  height: 25px;
+  cursor: pointer;
+  max-width: 100px;
+}
+.fav-add-btn:hover{
+  background-color: #a9aea9;
+}
+.number{
+  background-color: rgb(255, 236, 67);
+  color:rgb(11, 11, 11);
+  font-size: 14px;
+  padding: 0 2px;
+  position:relative;
+  border-radius: 50%;
+  margin-bottom: 5px;
 }
 
+
 .dropbtn {
-  background-color: #4CAF50;
+  background-color: black;
   color: white;
-  padding: 10px;
+  padding: 10px 25px;
   font-size: 16px;
   border: none;
   cursor: pointer;
-  width: 150px;
+  width: auto;
+  margin: 0px 10px;
+  border-radius: 5px;
 }
 
 .dropdown {
@@ -38,22 +68,25 @@
 
 .dropdown-content {
   display: none;
+  margin: 0px 10px;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
+  border-radius: 10px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
 .dropdown-content button {
   color: black;
-  padding: 10px 14px;
+  padding: 10px 16px;
   text-decoration: none;
   display: block;
   border: none;
   background: none;
   width: 100%;
   text-align: center;
+  cursor: pointer;
 }
 
 .dropdown-content button:hover {
@@ -65,54 +98,56 @@
 }
 
 .dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+  background-color: #a9aea9;
 }
-
-
-
 
 .logoContainer{
   margin-left: 20px;
 }
-
-
-
-.favorites {
-  width: 50px;
+.favorite-loader {
+  margin: 20vh 40%;
 }
-
-.linkButton {
-  width: auto
+.product-loader{
+  margin: 30vh 40%;
 }
-
-.loader {
-  margin: 30vh 50%;
+.favorite-back{
+  margin: 10vh 40%;
 }
-
 
 .ProductContainer {
   margin: 0 5%;
   padding: 45px;
-  
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  justify-content:center;
   flex-wrap: wrap;
+  padding-bottom: 50px;
 }
 
 .eachItem{
-   min-width: 250px;
-   min-height: 300px;
+   min-width: 240px;
+   height: auto;
    border-radius: 5px;
    margin-top: 20px;
    margin-left: 20px;
-   box-shadow: 0 0 2px 2px rgba(0,0,0,.05);
+   box-shadow: 0 0 1px 2px rgba(0,0,0,.05);
    overflow: hidden;
    font-size: 0.8rem;
    position: relative;
+   padding-bottom: 10px;
+   justify-self: flex-start;
+}
+.eachItem span{
+  cursor:auto;
+}
+.icon:hover{
+    color: grey;
+    cursor: pointer;
 }
 .eachItem:hover {
   box-shadow: 0 0 8px 3px rgba(0,0,0,.15);
-  transform: scale(1.025);
+  transform: scale(1.01);
   opacity: 1;
   filter: grayscale(0);
   transition: .35s all ease;
@@ -123,7 +158,10 @@
   height: 130px;
   margin-top: 10px;
 }
-
+.delete-fav-card{
+  display: flex;
+  justify-content: space-around;
+}
 
 
 .itemDetail{
@@ -131,15 +169,29 @@
    display: flex;
    text-align: left;
 }
+@media screen and (max-width: 800px) {
+  .itemDetail {
+    flex-direction:column; /* The width is 100%, when the viewport is 800px or smaller */
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .fav-add-btn{
+    padding: 3px 15px;
+  }
+  .dropbtn{
+    padding: 5.5px 15px;
+  }
+}
 .details{
   width: 500px;
-  height: 400px;
+  height: 500px;
   overflow: hidden;
   padding-left: 25px;
 }
 .detailImagentainer{
    width: 500px;
-   height: 400px;
+   height: 500px;
    overflow: hidden;
 }
 .detailImage{
@@ -148,4 +200,27 @@
 }
 .delete-favorite{
   display: block;
+}
+.fav-delete-btn{
+  background-color: black;
+  color: white;
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.fav-delete-btn:hover{
+  background-color:#4681f4;
+}
+
+
+
+.inputBox{
+  width: 450px;
+  height: 500px;
+  border: 2px solid brown;
 }
