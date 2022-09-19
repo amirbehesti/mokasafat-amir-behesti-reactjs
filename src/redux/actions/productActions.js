@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { accessToken } from "../../accessKey/token";
-
-const url = "https://upayments-studycase-api.herokuapp.com/api/products";
+import { accessToken,url } from "../../accessKey/token";
 
 export const getProductsData = createAsyncThunk(
   `products/getProducts`,
@@ -25,3 +23,10 @@ export const deleteProduct = (data) => {
     payload: data,
   };
 };
+
+export const newProductAction = (data)=>{
+  return {
+    type: "NEW_PRODUCT",
+    payload: data,
+  }
+}

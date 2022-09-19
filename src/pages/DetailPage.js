@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import FadeLoader from "react-spinners/FadeLoader";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addDeleteFavorite } from "../redux/actions/favoriteAction";
@@ -10,15 +9,15 @@ function DetailPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state);
-  const { filterdData, favorites } = data.products;
+  const { productData, favorites } = data.products;
 
   let currentProduct = [];
   if (
-    filterdData.some((value) => {
+    productData.some((value) => {
       return value._id === id;
     })
   ) {
-    currentProduct = filterdData.filter((item) => {
+    currentProduct = productData.filter((item) => {
       return item._id === id;
     });
   } else {
@@ -27,16 +26,20 @@ function DetailPage() {
     });
   }
 
+  const isFavorite = data.products.favorites.some((item) => {
+    return item._id === id;
+  });
+
+
   const goBack = () => {
     navigate(-1);
   };
-  const isFavorite = data.products.favorites.some((value) => {
-    return value._id === currentProduct[0]._id;
-  });
 
+  
   return (
     <div className="ProductContainer">
-      {currentProduct[0] ? (
+      
+      {currentProduct.length > 0 ? (
         <div className="itemDetail">
           <div className="detailImagentainer">
             <img
@@ -89,16 +92,10 @@ function DetailPage() {
         </div>
       ) : (
         <div className="product-loader">
-          {currentProduct.length ? (
-            <FadeLoader color="black" size={160} />
-          ) : (
-            <div>
-              <h2>Product Removed From Favorites...</h2>
-              <button onClick={goBack} className="fav-delete-btn">
-                Go Back
-              </button>
-            </div>
-          )}
+          <h3>No results to show.</h3>
+          <button onClick={goBack} className="fav-delete-btn">
+            Previous Page
+          </button>
         </div>
       )}
     </div>

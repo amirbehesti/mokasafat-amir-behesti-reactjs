@@ -6,7 +6,6 @@ const initialState = {
 };
 
 const productReducer = (state = initialState, action) => {
-  // console.log(action, "ACTIONS");
   switch (action.type) {
     case "products/getProducts/fulfilled":
       return {
@@ -14,6 +13,10 @@ const productReducer = (state = initialState, action) => {
         productData: action.payload.payload,
         filterdData: action.payload.payload,
       };
+    case "NEW_PRODUCT":
+      return {
+        ...state,productData:[...state.productData,action.payload]
+      }
     case "FAVORITES":
       return { ...state, favorites: action.payload };
 
@@ -21,27 +24,20 @@ const productReducer = (state = initialState, action) => {
       let updateMainArray = state.productData.filter(function (el) {
         return el._id !== action.payload;
       });
-      let updateFilterdArray = state.productData.filter(function (el) {
+
+      let updateFilterdArray = state.filterdData.filter(function (el) {
         return el._id !== action.payload;
       });
-
-      let tempFav = [...state.favorites];
-      if (tempFav.includes(action.payload)) {
-        const indexPresent = tempFav.indexOf(action.payload);
-        tempFav.splice(indexPresent, 1);
-        localStorage.setItem("favorites", JSON.stringify(tempFav));
-      }
       return {
         ...state,
         productData: updateMainArray,
         filterdData: updateFilterdArray,
-        favorites: tempFav,
       };
 
     case "FILTER_PRODUCT":
       let newArray = [];
       if (action.payload === "All") {
-        newArray = state.productData;
+        newArray = [...state.productData];
       } else {
         newArray = state.productData.filter(function (el) {
           return el.category === action.payload;
@@ -56,7 +52,7 @@ const productReducer = (state = initialState, action) => {
 
     case "ADD_REMOVE_FAVORITES":
       let updateFav = [...state.favorites];
-      if (!updateFav.some((value)=> { return (value._id === action.payload._id); })) {
+      if (!updateFav.some((value)=> { return (value._id === action.payload._id) })) {
         updateFav.push(action.payload);
         localStorage.setItem("favorites", JSON.stringify(updateFav));
       } else {

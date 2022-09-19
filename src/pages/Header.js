@@ -10,18 +10,21 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { favorites } = data.products;
-
+  const {catagoriesData} = data.catagories;
+  
   const goToFavorites = ()=>{
     navigate("/favorites");
   }
   const goToAddNewPage = ()=>{
     navigate("/addnew");
   }
-
+  const goToHomePage = ()=>{
+    navigate("/products");
+  }
 
   return (
     <div className="header">
-      <div className="logoContainer"><h1>COMPANY</h1></div>
+      <div className="logoContainer" onClick={goToHomePage}><h1>LOGO</h1></div>
 
       <div className="filter-favorites">
       <div className="fav-add-btn" onClick={goToAddNewPage}>Add Item</div>
@@ -30,8 +33,7 @@ function Header() {
           <button className="dropbtn"><span><FaFilter/></span> {data.products.filterTerm}</button>
           <div className="dropdown-content">
             <button onClick={() => dispatch(filterProduct("All"))}>All</button>
-            {data.catagories.catagoriesData &&
-              data.catagories.catagoriesData.map((item, index) => {
+            {catagoriesData && catagoriesData.map((item, index) => {
                 return (
                   <button
                     key={index}

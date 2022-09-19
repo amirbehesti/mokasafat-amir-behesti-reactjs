@@ -15,12 +15,15 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    
     const getData = async () => {
       await dispatch(getProductsData());
     };
+
     const getCatagories = async () => {
       await dispatch(getCatagoriesData());
     };
+
     const updateFavorites = async()=>{
       const fromLocal = await localStorage.getItem("favorites");
       if(fromLocal){
@@ -28,6 +31,7 @@ function App() {
           dispatch(favoriteProducts(data));
       }
     };
+
     getCatagories();
     getData();
     updateFavorites();

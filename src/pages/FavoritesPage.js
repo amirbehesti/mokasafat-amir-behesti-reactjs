@@ -7,9 +7,9 @@ function FavoritesPage() {
 
   const data = useSelector((state) => state);
   const { favorites } = data.products;
-  const goBack = ()=>{
+  const goBack = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <div className="ProductContainer">
@@ -19,12 +19,14 @@ function FavoritesPage() {
         })
       ) : (
         <div className="favorite-loader">
-          <h2>No Favorites...</h2>
+          <h3>No favorites to show...</h3>
         </div>
       )}
 
       <div className="favorite-back">
-      <button onClick={goBack} className="fav-delete-btn">Go Back</button>
+        <button onClick={goBack} className="fav-delete-btn">
+          Go Back
+        </button>
       </div>
     </div>
   );

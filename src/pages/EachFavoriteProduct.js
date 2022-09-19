@@ -5,9 +5,12 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 function EachFavoriteProduct({ item }) {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const data = useSelector((state) => state);
+
   const isFavorite = data.products.favorites.some((value) => {
     return value._id === item._id;
   });
