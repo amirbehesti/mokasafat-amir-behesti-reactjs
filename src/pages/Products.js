@@ -7,7 +7,7 @@ function Products() {
   const { filterdData, productData } = data.products;
   return (
     <>
-      <div><h3>Showing {data.products.filterTerm} Products</h3></div>
+      <div><h4>Showing {data.products.filterTerm} Products</h4></div>
       <div className="ProductContainer">
         {filterdData.length && productData.length ? (
           filterdData.map((item, index) => {

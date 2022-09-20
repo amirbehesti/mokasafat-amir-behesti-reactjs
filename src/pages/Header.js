@@ -30,7 +30,7 @@ function Header() {
       <div className="fav-add-btn" onClick={goToAddNewPage}>Add Item</div>
 
         <div className="dropdown">
-          <button className="dropbtn"><span><FaFilter/></span> {data.products.filterTerm}</button>
+          <button className="dropbtn"><span><FaFilter  className="filter-icon"/></span> {data.products.filterTerm}</button>
           <div className="dropdown-content">
             <button onClick={() => dispatch(filterProduct("All"))}>All</button>
             {catagoriesData && catagoriesData.map((item, index) => {
@@ -47,8 +47,8 @@ function Header() {
         </div>
 
         <div onClick={goToFavorites} className="fav-add-btn">
-          <span> <MdFavorite size="25px"/> </span>
-          <div className="number"><b>{favorites.length}</b></div>
+          <span> <MdFavorite size="22px"/> </span>
+          <div className="number">{favorites.length}</div>
         </div>
       </div>
     </div>

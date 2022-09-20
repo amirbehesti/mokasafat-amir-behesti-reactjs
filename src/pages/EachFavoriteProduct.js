@@ -28,8 +28,8 @@ function EachFavoriteProduct({ item }) {
           src={item.avatar}
           alt={item.description.substr(0, 25)}
         />
-        <h3>{item.name.substr(0, 25)}</h3>
-        <h3>Price: &#x20B9;{item.price}</h3>
+        <p>{item.name.substr(0, 25)}</p>
+        <p>Price: &#x20B9;{item.price}</p>
       </div>
 
       <div className="delete-fav-card">
