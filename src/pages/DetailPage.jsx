@@ -14,20 +14,20 @@ function DetailPage() {
   let currentProduct = [];
   if (
     productData.some((value) => {
-      return value._id === id;
+      return value.id === Number(id);
     })
   ) {
     currentProduct = productData.filter((item) => {
-      return item._id === id;
+      return item.id === Number(id);
     });
   } else {
     currentProduct = favorites.filter((item) => {
-      return item._id === id;
+      return item.id === Number(id);
     });
   }
 
   const isFavorite = data.products.favorites.some((item) => {
-    return item._id === id;
+    return item.id === Number(id);
   });
 
 
@@ -44,27 +44,27 @@ function DetailPage() {
           <div className="detailImagentainer">
             <img
               className="detailImage"
-              src={currentProduct[0].avatar}
+              src={currentProduct[0].images[0]}
               alt={currentProduct[0].description}
             />
           </div>
 
           <div className="details">
-            <h3>Name: {currentProduct[0].name.substr(0, 100)}</h3>
+            <h3>Name: {currentProduct[0].title}</h3>
             <p>
               <b>Category:</b> {currentProduct[0].category}
             </p>
             <p>
-              <b>Created At:</b> {currentProduct[0].createdAt}
+              <b>Discount:</b> {currentProduct[0].discountPercentage} %
             </p>
             <p>
-              <b>Updated At:</b> {currentProduct[0].updatedAt}
+              <b>In Stock:</b> {currentProduct[0].stock}
             </p>
             <p>
-              <b>Product Id:</b> {currentProduct[0]._id}
+              <b>Product Id:</b> {currentProduct[0].id}
             </p>
             <p>
-              <b>Added by</b> {currentProduct[0].developerEmail}
+              <b>Rating:</b> {currentProduct[0].rating}
             </p>
             <p>
               <b>Description:</b> {currentProduct[0].description.substr(0, 100)}

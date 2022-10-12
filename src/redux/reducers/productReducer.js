@@ -22,11 +22,11 @@ const productReducer = (state = initialState, action) => {
 
     case "DELETE_PRODUCT":
       let updateMainArray = state.productData.filter(function (el) {
-        return el._id !== action.payload;
+        return el.id !== action.payload;
       });
 
       let updateFilterdArray = state.filterdData.filter(function (el) {
-        return el._id !== action.payload;
+        return el.id !== action.payload;
       });
       return {
         ...state,
@@ -52,11 +52,11 @@ const productReducer = (state = initialState, action) => {
 
     case "ADD_REMOVE_FAVORITES":
       let updateFav = [...state.favorites];
-      if (!updateFav.some((value)=> { return (value._id === action.payload._id) })) {
+      if (!updateFav.some((value)=> { return (value.id === action.payload.id) })) {
         updateFav.push(action.payload);
         localStorage.setItem("favorites", JSON.stringify(updateFav));
       } else {
-        const index = updateFav.map(item => item._id).indexOf(action.payload._id);
+        const index = updateFav.map(item => item.id).indexOf(action.payload.id);
         updateFav.splice(index, 1);
         localStorage.setItem("favorites", JSON.stringify(updateFav));
       }

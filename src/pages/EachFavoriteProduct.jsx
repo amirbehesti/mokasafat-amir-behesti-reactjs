@@ -1,32 +1,34 @@
 import { useNavigate } from "react-router-dom";
-import { MdFavorite, MdDeleteOutline } from "react-icons/md";
-import { deleteProduct } from "../redux/actions/productActions";
+import { MdFavorite } from "react-icons/md";
 import { addDeleteFavorite } from "../redux/actions/favoriteAction";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-function EachProduct({ item }) {
+function EachFavoriteProduct({ item }) {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const data = useSelector((state) => state);
+
   const isFavorite = data.products.favorites.some((value) => {
-    return value._id === item._id;
+    return value.id === item.id;
   });
 
   const goToDetails = () => {
-    const id = item._id;
+    const id = item.id;
     navigate(`/products/${id}`);
   };
 
   return (
-    <div className="eachItem" key={item._id}>
+    <div className="eachItem" key={item.id}>
       <div onClick={goToDetails}>
         <img
           className="productImage"
-          src={item.avatar}
-          alt={item.description.substr(0, 25)}
+          src={item.images[0]}
+          alt={item.description}
         />
-        <p>{item.name.substr(0, 25)}</p>
+        <p>{item.title}</p>
         <p>Price: &#x20B9;{item.price}</p>
       </div>
 
@@ -41,14 +43,8 @@ function EachProduct({ item }) {
             size="20px"
           />
         </span>
-        <span
-          title="Delete item?"
-          onClick={() => dispatch(deleteProduct(item._id))}
-        >
-          <MdDeleteOutline className="icon" size="20px" />
-        </span>
       </div>
     </div>
   );
 }
-export default EachProduct;
+export default EachFavoriteProduct;

@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useReducer, useState } from "react";
 import { initialState, reducer } from "./inputReducer/reducer";
 import { newProductAction } from "../redux/actions/productActions";
-import { accessToken, url } from "../accessKey/token";
+import { ProductUrl } from "../api/urls";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -62,10 +62,10 @@ function AddNewProduct() {
     setError(false);
     setSuccessMessage("");
     if (validate()) {
-      const response = await axios.post(url, state, {
+      const response = await axios.post(ProductUrl, state, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer`,
         },
       });
       if (response.data.message === "Success") {

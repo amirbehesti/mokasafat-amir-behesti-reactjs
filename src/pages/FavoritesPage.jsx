@@ -19,7 +19,7 @@ function FavoritesPage() {
         })
       ) : (
         <div className="favorite-loader">
-          <h3>No favorites to show...</h3>
+          <h3>No favorites added...</h3>
         </div>
       )}
 

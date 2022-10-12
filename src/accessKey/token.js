@@ -1,3 +1,0 @@
-export const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaXJiZWhlc3RpMzkyQGdtYWlsLmNvbSIsImdpdGh1YiI6Imh0dHBzOi8vZ2l0aHViLmNvbS9hbWlyYmVoZXN0aSIsImlhdCI6MTY2MzQwMzQwNCwiZXhwIjoxNjYzODM1NDA0fQ._FjS2jCQCM1jtrnFd4OeAvjDop86VqOVffogr3HiliA";
-
-export const url = "https://upayments-studycase-api.herokuapp.com/api/products";
