@@ -24,7 +24,7 @@ function EachProduct({ item }) {
         <img title="Tap to view Detail"
           className="productImage"
           src={item.images[0]}
-          alt={item.description}
+          alt={item.description.substr(0,20)}
         />
         <p>{item.title.substr(0,20)}</p>
         <p>Price: &#x20B9;{item.price}</p>

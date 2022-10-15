@@ -1,12 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ProductUrl } from "../../api/urls";
+import { ProductUrl} from "../../api/urls";
 
 export const getProductsData = createAsyncThunk(
   `products/getProducts`,
   async () => {
     const response = await axios.get(ProductUrl);
-    // console.log(response);
     return {
       payload: response.data.products,
     };
@@ -26,11 +25,3 @@ export const newProductAction = (data)=>{
     payload: data,
   }
 }
-
-
-// , {
-//   headers: {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${accessToken}`,
-//   },
-// }

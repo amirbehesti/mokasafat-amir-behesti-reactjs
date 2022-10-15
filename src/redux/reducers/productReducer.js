@@ -1,3 +1,5 @@
+import { defaultData } from "../../api/urls";
+
 const initialState = {
   productData: [],
   filterdData: [],
@@ -6,6 +8,8 @@ const initialState = {
 };
 
 const productReducer = (state = initialState, action) => {
+  // console.log(action.type);
+  // console.log(action.payload);
   switch (action.type) {
     case "products/getProducts/fulfilled":
       return {
@@ -13,12 +17,24 @@ const productReducer = (state = initialState, action) => {
         productData: action.payload.payload,
         filterdData: action.payload.payload,
       };
+
+    case "products/getProducts/rejected":
+      return {
+        ...state,
+        productData: defaultData.products,
+        filterdData: defaultData.products,
+      };
+
     case "NEW_PRODUCT":
       return {
-        ...state,productData:[...state.productData,action.payload]
-      }
+        ...state,
+        productData: [...state.productData, action.payload],
+      };
+
     case "FAVORITES":
       return { ...state, favorites: action.payload };
+
+
 
     case "DELETE_PRODUCT":
       let updateMainArray = state.productData.filter(function (el) {
@@ -33,6 +49,7 @@ const productReducer = (state = initialState, action) => {
         productData: updateMainArray,
         filterdData: updateFilterdArray,
       };
+
 
     case "FILTER_PRODUCT":
       let newArray = [];
@@ -50,13 +67,39 @@ const productReducer = (state = initialState, action) => {
         filterTerm: action.payload,
       };
 
+
+    case "SEARCH_PRODUCT":
+      let resultArray = [];
+      let searchText = action.payload;
+
+      if(searchText.length){
+        resultArray = state.productData.filter((el)=> {
+          return el.brand.toLowerCase().includes(action.payload.toLowerCase()) || el.category.toLowerCase().includes(action.payload.toLowerCase()) || el.description.toLowerCase().includes(action.payload.toLowerCase()) || el.title.toLowerCase().includes(action.payload.toLowerCase());
+        });
+      }else{
+        resultArray = [...state.productData];
+        searchText = "All";
+      }
+
+      return {
+        ...state,
+        filterdData: [...resultArray],
+        filterTerm: searchText,
+      };
+
     case "ADD_REMOVE_FAVORITES":
       let updateFav = [...state.favorites];
-      if (!updateFav.some((value)=> { return (value.id === action.payload.id) })) {
+      if (
+        !updateFav.some((value) => {
+          return value.id === action.payload.id;
+        })
+      ) {
         updateFav.push(action.payload);
         localStorage.setItem("favorites", JSON.stringify(updateFav));
       } else {
-        const index = updateFav.map(item => item.id).indexOf(action.payload.id);
+        const index = updateFav
+          .map((item) => item.id)
+          .indexOf(action.payload.id);
         updateFav.splice(index, 1);
         localStorage.setItem("favorites", JSON.stringify(updateFav));
       }

@@ -10,6 +10,7 @@ import Products from "./pages/Products";
 import DetailPage from "./pages/DetailPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import AddNewProduct from "./pages/AddNewProduct";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
           <Route path='/products/:id' element={<DetailPage/>}/>
           <Route path='/favorites' element={<FavoritesPage/>}/>
           <Route path='/addnew' element={<AddNewProduct/>}/>
+          <Route path='*' element={<NotFound/>} />
        </Routes>
     </div>
   );
