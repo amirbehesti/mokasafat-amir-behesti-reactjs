@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect, useRef } from "react";
 import { initialState, reducer } from "./inputReducer/reducer";
 import { newProductAction } from "../redux/actions/productActions";
-import { ProductUrl } from "../api/urls";
+import { AddUrl } from "../api/urls";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -12,21 +12,37 @@ function AddNewProduct() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [error, setError] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [urls, setUrls] = useState([]);
   const navigate = useNavigate();
   const newProductDispatch = useDispatch();
+  const input1 = useRef();
+  const input2 = useRef();
 
   const goBack = () => {
     navigate(-1);
   };
+  const handleUrls = (e) => {
+    let temp = [...urls];
+    if (e.target.name === "url1") {
+      temp[0] = e.target.value;
+      setUrls(temp);
+    } else {
+      temp[1] = e.target.value;
+      setUrls(temp);
+    }
+  };
+  useEffect(() => {
+    dispatch({ type: "IMAGES", payload: urls });
+  }, [urls]);
 
   const handleActions = (e) => {
     setError(false);
     setSuccessMessage("");
-    if (e.target.name === "name") {
-      dispatch({ type: "NAME", payload: e.target.value });
+    if (e.target.name === "brand") {
+      dispatch({ type: "BRAND", payload: e.target.value });
     }
-    if (e.target.name === "price") {
-      dispatch({ type: "PRICE", payload: e.target.value });
+    if (e.target.name === "title") {
+      dispatch({ type: "TITLE", payload: e.target.value });
     }
     if (e.target.name === "category") {
       dispatch({ type: "CATEGORY", payload: e.target.value });
@@ -34,46 +50,56 @@ function AddNewProduct() {
     if (e.target.name === "description") {
       dispatch({ type: "DESCRIPTION", payload: e.target.value });
     }
-    if (e.target.name === "url") {
-      dispatch({ type: "AVATAR", payload: e.target.value });
+    if (e.target.name === "thumb") {
+      dispatch({ type: "THUMBNAIL", payload: e.target.value });
     }
-    if (e.target.name === "email") {
-      dispatch({ type: "EMAIL", payload: e.target.value });
+    if (e.target.name === "price") {
+      dispatch({ type: "PRICE", payload: e.target.value });
+    }
+    if (e.target.name === "discount") {
+      dispatch({ type: "DISCOUNT", payload: e.target.value });
+    }
+    if (e.target.name === "rating") {
+      dispatch({ type: "RATING", payload: e.target.value });
+    }
+    if (e.target.name === "stock") {
+      dispatch({ type: "STOCK", payload: e.target.value });
     }
   };
 
   const validate = () => {
-    if (
+    return (
       !isNaN(state.price) &&
       state.price > 0 &&
-      state.name !== "" &&
+      state.title !== "" &&
+      state.brand !== "" &&
       state.description !== "" &&
       state.category !== "" &&
-      state.avatar !== "" &&
-      state.developerEmail !== ""
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+      state.images.length === 2 &&
+      !isNaN(state.rating) &&
+      !isNaN(state.discountPercentage) &&
+      !isNaN(state.stock)
+    );
   };
 
   const newProduct = async () => {
     setError(false);
     setSuccessMessage("");
     if (validate()) {
-      const response = await axios.post(ProductUrl, state, {
+      console.log(state);
+      const response = await axios.post(AddUrl, state, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer`,
         },
       });
-      if (response.data.message === "Success") {
+      if (response.statusText === "OK") {
         dispatch({ type: "RESET", payload: initialState });
-        setSuccessMessage(response.data.product._id);
-        newProductDispatch(newProductAction(response.data.product));
+        setSuccessMessage(response.data.id);
+        input1.current.value = "";
+        input2.current.value = "";
+        newProductDispatch(newProductAction(response.data));
       }
-      // console.log(response);
+      console.log(response);
     } else {
       setError(true);
     }
@@ -90,6 +116,7 @@ function AddNewProduct() {
           ""
         )}
       </>
+
       <>
         {successMessage && (
           <div className="errordiv">
@@ -99,28 +126,30 @@ function AddNewProduct() {
           </div>
         )}
       </>
+
       <div className="ProductContainer">
         <div className="inputBox">
           <div>
             <h3>Add New Product...</h3>
           </div>
+
           <div>
-            <span>Name : </span>
+            <span>Brand : </span>
             <input
-              name="name"
-              value={state.name}
+              name="brand"
+              value={state.brand}
               onChange={(e) => handleActions(e)}
               type={"text"}
             />
           </div>
 
           <div>
-            <span>Price : </span>
+            <span>Title : </span>
             <input
-              name="price"
-              value={state.price}
+              name="title"
+              value={state.title}
               onChange={(e) => handleActions(e)}
-              type={"number"}
+              type={"text"}
             />
           </div>
 
@@ -146,32 +175,82 @@ function AddNewProduct() {
           </div>
 
           <div>
+            <span>Price : </span>
+            <input
+              name="price"
+              value={state.price}
+              onChange={(e) => handleActions(e)}
+              type="number"
+            />
+          </div>
+
+          <div>
+            <span>Discount : </span>
+            <input
+              name="discount"
+              value={state.discountPercentage}
+              onChange={(e) => handleActions(e)}
+              type="number"
+            />
+          </div>
+
+          <div>
+            <span>In Stock : </span>
+            <input
+              name="stock"
+              value={state.stock}
+              onChange={(e) => handleActions(e)}
+              type="number"
+            />
+          </div>
+
+          <div>
+            <span>Rating : </span>
+            <input
+              name="rating"
+              value={state.rating}
+              onChange={(e) => handleActions(e)}
+              type="number"
+            />
+          </div>
+
+          <div>
             <span>Description : </span>
             <input
               name="description"
               value={state.description}
               onChange={(e) => handleActions(e)}
-              type={"text"}
+              type="text"
             />
           </div>
 
           <div>
-            <span>Avatar URl : </span>
+            <span>URl-1 : </span>
             <input
-              name="url"
-              value={state.avatar}
-              onChange={(e) => handleActions(e)}
-              type={"url"}
+              ref={input1}
+              name="url1"
+              onChange={(e) => handleUrls(e)}
+              type="url"
             />
           </div>
 
           <div>
-            <span>Email : </span>
+            <span>URl-2 : </span>
             <input
-              name="email"
-              value={state.developerEmail}
+              ref={input2}
+              name="url2"
+              onChange={(e) => handleUrls(e)}
+              type="url"
+            />
+          </div>
+
+          <div>
+            <span>Thumbnail : </span>
+            <input
+              name="thumb"
+              value={state.thumbnail}
               onChange={(e) => handleActions(e)}
-              type={"email"}
+              type="url"
             />
           </div>
 
@@ -183,8 +262,6 @@ function AddNewProduct() {
               Add Product
             </button>
           </div>
-
-
         </div>
       </div>
     </>

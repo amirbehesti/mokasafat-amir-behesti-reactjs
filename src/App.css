@@ -11,7 +11,7 @@
 /*-------------- Header Section------------ */
 
 .header {
-  height: 60px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -45,19 +45,19 @@ button{
 
 .filter-icon{
   position:relative; 
-  top:4px; 
+  top:3px; 
   left:0px;
 }
 
 .fav-add-btn{
   text-align: center;
   background-color: #0275d8;
-  padding: 8px 15px;
-  border-radius: 4px;
+  padding: 7px 20px;
+  border-radius: 5px;
   color: white;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
-  margin: 0px 10px;
+  margin: 0px 8px;
   position: relative;
 }
 
@@ -81,12 +81,12 @@ button{
   color: white;
   outline: none;
   min-width: 100px;
-  padding: 8px 25px;
-  font-size: 14px;
+  padding: 7px 20px;
+  font-size: 12px;
   border: none;
   cursor: pointer;
-  margin: 0px 10px;
-  border-radius: 4px;
+  margin: 0px 8px;
+  border-radius: 5px;
 }
 
 .dropdown {
@@ -108,7 +108,7 @@ button{
 }
 .dropdown-content button {
   color: black;
-  padding: 8px 13px;
+  padding: 6px 13px;
   font-size: .7em;
   text-decoration: none;
   display: block;
@@ -120,7 +120,7 @@ button{
 }
 
 .dropdown-content button:hover {
-  background-color: #e7e6e6
+  background-color: #e7e6e6;
 }
 
 .dropdown:hover .dropdown-content {
@@ -130,6 +130,21 @@ button{
 .dropdown:hover .dropbtn {
   background-color: #a9aea9;
 }
+
+.cart-fav-btn{
+  text-align: center;
+  background-color: #9eeefc;
+  padding: 4px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0px 8px;
+  position: relative;
+}
+.cart-fav-btn:hover{
+  background-color: #bebebe;
+}
+
+
 
 .info{
   margin-top: 10px;
@@ -184,7 +199,7 @@ button{
    min-width: 220px;
    height: auto;
    border-radius: 5px;
-   box-shadow: 0 0 1px 2px rgba(0,0,0,.05);
+   box-shadow: 0 0 5px 2px rgba(0,0,0,.05);
    overflow: hidden;
    font-size: 0.8rem;
    position: relative;
@@ -195,7 +210,7 @@ button{
   cursor:auto;
 }
 .icon:hover{
-    color: grey;
+    color: #f9a347;
     cursor: pointer;
 }
 .eachItem:hover {
@@ -227,14 +242,14 @@ button{
    text-align: left;
 }
 .details{
-  width: 500px;
-  height: 500px;
+  width: 450px;
+  height: 450px;
   overflow: hidden;
   padding: 10px 15px;
 }
 .carousel-container{
-   width: 500px;
-   height: 500px;
+   width: 450px;
+   height: 450px;
    display: flex;
    flex-wrap: nowrap;
    background-color: #f1f1f1;
@@ -281,11 +296,8 @@ button{
     height: auto;
     padding: 20px 0px;
   }
-  .fav-add-btn{
-    padding: 3px 10px;
-  }
-  .dropbtn{
-    padding: 3px 15px;
+  .cart-fav-btn{
+    padding: 4px 8px;
   }
   .dropdown-content button {
     padding: 3px 15px;
@@ -306,7 +318,7 @@ button{
   background-color: #0275d8;
   color: white;
   padding: 5px;
-  font-size: 14px;
+  font-size: 12px;
   border: none;
   cursor: pointer;
   width: 150px;
@@ -325,7 +337,7 @@ button{
 .inputBox{
   width: 450px;
   height: auto;
-  margin-top: 70px;
+  margin-top: 20px;
   border: 3px solid #dff0ef;
   display: flex;
   flex-direction: column;
@@ -340,7 +352,7 @@ button{
   align-items: center;
   justify-content: space-between;
   width: 400px;
-  height: 35px;
+  height: 30px;
   border-radius: 5px;
 }
 .inputBox div input{
@@ -427,7 +439,7 @@ button{
   flex-wrap: wrap;
 }
 .buttons button{
-  padding: 5px 10px;
+  padding: 3px 10px;
   text-align: center;
   cursor: pointer;
   border-radius: 2px;
@@ -456,7 +468,7 @@ button{
 
 
 
-
+/* --------------Cart -------------------*/
 
 
 

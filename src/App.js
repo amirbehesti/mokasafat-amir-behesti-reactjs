@@ -8,8 +8,9 @@ import "./App.css";
 import Header from "./pages/Header";
 import Products from "./pages/Products";
 import DetailPage from "./pages/DetailPage";
-import FavoritesPage from "./pages/FavoritesPage";
+import Favorites from "./pages/Favorites";
 import AddNewProduct from "./pages/AddNewProduct";
+import CartComponent from "./pages/CartComponent";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -46,8 +47,9 @@ function App() {
           <Route path='/' element={<Products/>}/>
           <Route path='/products' element={<Products/>}/>
           <Route path='/products/:id' element={<DetailPage/>}/>
-          <Route path='/favorites' element={<FavoritesPage/>}/>
+          <Route path='/favorites' element={<Favorites/>}/>
           <Route path='/addnew' element={<AddNewProduct/>}/>
+          <Route path='/cart' element={<CartComponent/>}/>
           <Route path='*' element={<NotFound/>} />
        </Routes>
     </div>

@@ -26,9 +26,18 @@ const productReducer = (state = initialState, action) => {
       };
 
     case "NEW_PRODUCT":
+      let newArr = state.productData.filter((item)=>{
+         return item.id !== action.payload.id;
+      })
+      let newFav = state.favorites.filter((item)=>{
+        return item.id !== action.payload.id;
+     })
+     newFav.push(action.payload)
+     localStorage.setItem("favorites", JSON.stringify(newFav));
       return {
         ...state,
-        productData: [...state.productData, action.payload],
+        productData: [...newArr, action.payload],
+        favorites : newFav,
       };
 
     case "FAVORITES":

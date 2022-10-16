@@ -1,17 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import { MdFavorite, MdDeleteOutline } from "react-icons/md";
+import { BsFillCartFill } from "react-icons/bs";
 import { deleteProduct } from "../redux/actions/productActions";
 import { addDeleteFavorite } from "../redux/actions/favoriteAction";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { addDeleteCart } from "../redux/actions/cartActions";
+import { useDispatch,useSelector } from "react-redux";
 
-function EachProduct({ item }) {
+const EachProduct = ({ item }) => {
+
+  const toCart = { quantity: 1, id: item.id, data: item };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const data = useSelector((state) => state);
-  const isFavorite = data.products.favorites.some((value) => {
+  const { products, carts } = data;
+  const {favorites} = products;
+  const { cartData } = carts;
+
+  const isFavorite = favorites.some((value) => {
     return value.id === item.id;
   });
+  
+ const isAlreadyOnCart = cartData.some((value) => {
+  return value.id === item.id;
+});
 
   const goToDetails = () => {
     const id = item.id;
@@ -21,12 +33,13 @@ function EachProduct({ item }) {
   return (
     <div className="eachItem" key={item.id}>
       <div onClick={goToDetails}>
-        <img title="Tap to view Detail"
+        <img
+          title="Tap to view Detail"
           className="productImage"
           src={item.images[0]}
-          alt={item.description.substr(0,20)}
+          alt={item.description.substr(0, 20)}
         />
-        <p>{item.title.substr(0,20)}</p>
+        <p>{item.title.substr(0, 20)}</p>
         <p>Price: &#x20B9;{item.price}</p>
       </div>
 
@@ -38,17 +51,32 @@ function EachProduct({ item }) {
           <MdFavorite
             className="icon"
             style={isFavorite ? { color: "#f9a347" } : { color: "black" }}
-            size="20px"
+            size="18px"
           />
         </span>
+
+
+        <span
+          title="Add to cart"
+          onClick={() => dispatch(addDeleteCart(toCart))}
+        >
+          <BsFillCartFill className="icon" size="18px" 
+              style={isAlreadyOnCart ? { color: "#f9a347" } : { color: "black" }}
+          />{" "}
+        </span>
+
+
         <span
           title="Delete product?"
           onClick={() => dispatch(deleteProduct(item.id))}
         >
-          <MdDeleteOutline className="icon" size="20px" />
+          <MdDeleteOutline 
+          className="icon" size="18px" />
         </span>
+
+        
       </div>
     </div>
   );
-}
+};
 export default EachProduct;

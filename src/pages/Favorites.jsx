@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import EachFavoriteProduct from "./EachFavoriteProduct";
 
-function FavoritesPage() {
+function Favorites() {
   const navigate = useNavigate();
 
   const data = useSelector((state) => state);
@@ -31,4 +31,4 @@ function FavoritesPage() {
     </div>
   );
 }
-export default FavoritesPage;
+export default Favorites;
