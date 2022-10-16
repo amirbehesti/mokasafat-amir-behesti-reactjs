@@ -9,8 +9,17 @@ const cartReducer = (state = initialState, action) => {
     case "PREV_ITEMS":
       return {
         ...state,
-        catagoriesData: action.payload.payload,
+        cartData: action.payload,
       };
+    
+    case "PLACE_ORDER":
+      if(localStorage.getItem("carts")){
+        localStorage.removeItem("carts");
+      }
+        return {
+          ...state,
+          cartData: [],
+        };
 
     case "ADD_DELETE_CART":
         let temp = [];
@@ -25,23 +34,45 @@ const cartReducer = (state = initialState, action) => {
             temp = [...state.cartData];
             temp.push(action.payload);
         }
+        localStorage.setItem("carts", JSON.stringify(temp));
       return {
         ...state,
         cartData: temp,
       };
 
     case "INCREASE":
+      let tempIncrease = state.cartData.map(object => {
+        if (Number(object.id) === Number(action.payload.id)) {
+          return {...object, quantity: object.quantity+1};
+        }
+        return object;
+      });
+      localStorage.setItem("carts", JSON.stringify(tempIncrease));
       return {
         ...state,
-        catagoriesData: action.payload.payload,
+        cartData: tempIncrease,
       };
 
     case "DECREASE":
+      let tempDecrease = [];
+      if(action.payload.quantity === 1){
+          tempDecrease = state.cartData.filter((item)=>{
+              return Number(item.id) !== Number(action.payload.id);
+          })
+      }else{
+          tempDecrease = state.cartData.map(object => {
+            if (Number(object.id) === Number(action.payload.id)) {
+              return {...object, quantity: object.quantity-1};
+            }
+            return object;
+          });
+      }
+      localStorage.setItem("carts", JSON.stringify(tempDecrease));
       return {
         ...state,
-        catagoriesData: action.payload.payload,
+        cartData: tempDecrease,
       };
-
+    
     default:
       return state;
   }

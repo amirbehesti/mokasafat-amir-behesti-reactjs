@@ -8,8 +8,6 @@ const initialState = {
 };
 
 const productReducer = (state = initialState, action) => {
-  // console.log(action.type);
-  // console.log(action.payload);
   switch (action.type) {
     case "products/getProducts/fulfilled":
       return {
@@ -26,24 +24,22 @@ const productReducer = (state = initialState, action) => {
       };
 
     case "NEW_PRODUCT":
-      let newArr = state.productData.filter((item)=>{
-         return item.id !== action.payload.id;
-      })
-      let newFav = state.favorites.filter((item)=>{
+      let newArr = state.productData.filter((item) => {
         return item.id !== action.payload.id;
-     })
-     newFav.push(action.payload)
-     localStorage.setItem("favorites", JSON.stringify(newFav));
+      });
+      let newFav = state.favorites.filter((item) => {
+        return item.id !== action.payload.id;
+      });
+      newFav.push(action.payload);
+      localStorage.setItem("favorites", JSON.stringify(newFav));
       return {
         ...state,
         productData: [...newArr, action.payload],
-        favorites : newFav,
+        favorites: newFav,
       };
 
     case "FAVORITES":
       return { ...state, favorites: action.payload };
-
-
 
     case "DELETE_PRODUCT":
       let updateMainArray = state.productData.filter(function (el) {
@@ -58,7 +54,6 @@ const productReducer = (state = initialState, action) => {
         productData: updateMainArray,
         filterdData: updateFilterdArray,
       };
-
 
     case "FILTER_PRODUCT":
       let newArray = [];
@@ -76,16 +71,22 @@ const productReducer = (state = initialState, action) => {
         filterTerm: action.payload,
       };
 
-
     case "SEARCH_PRODUCT":
       let resultArray = [];
       let searchText = action.payload;
 
-      if(searchText.length){
-        resultArray = state.productData.filter((el)=> {
-          return el.brand.toLowerCase().includes(action.payload.toLowerCase()) || el.category.toLowerCase().includes(action.payload.toLowerCase()) || el.description.toLowerCase().includes(action.payload.toLowerCase()) || el.title.toLowerCase().includes(action.payload.toLowerCase());
+      if (searchText.length) {
+        resultArray = state.productData.filter((el) => {
+          return (
+            el.brand.toLowerCase().includes(action.payload.toLowerCase()) ||
+            el.category.toLowerCase().includes(action.payload.toLowerCase()) ||
+            el.description
+              .toLowerCase()
+              .includes(action.payload.toLowerCase()) ||
+            el.title.toLowerCase().includes(action.payload.toLowerCase())
+          );
         });
-      }else{
+      } else {
         resultArray = [...state.productData];
         searchText = "All";
       }

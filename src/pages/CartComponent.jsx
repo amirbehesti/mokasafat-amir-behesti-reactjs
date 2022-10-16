@@ -1,16 +1,18 @@
-import { useSelector, useDispatch } from "react-redux";
-
+import { useSelector} from "react-redux";
+import EachCartProduct from "./EachCartProduct";
 
 const CartComponent = () => {
     const data = useSelector((state) => state);
-    const dispatch = useDispatch();
-
     const { cartData } = data.carts;
-    console.log(cartData)
+    // console.log(cartData)
 
     
   return (
-    <div>CartComponent</div>
+    <div className="cart-container">
+      {cartData && cartData.map((item,index)=>{
+         return <EachCartProduct item={item} key={index}/>
+      })}
+    </div>
   )
 }
 export default CartComponent

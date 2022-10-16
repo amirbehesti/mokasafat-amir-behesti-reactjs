@@ -25,3 +25,9 @@ export const addDeleteCart = (data) => {
       payload: data,
     };
   };
+
+export const placeOrder = () => {
+    return {
+      type: "PLACE_ORDER"
+    };
+  };

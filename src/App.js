@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { favoriteProducts } from "./redux/actions/favoriteAction";
 import { getProductsData } from "./redux/actions/productActions";
 import { getCatagoriesData } from "./redux/actions/catagoriesActions";
+import { updateCart } from "./redux/actions/cartActions";
 import "./App.css";
 import Header from "./pages/Header";
 import Products from "./pages/Products";
@@ -33,10 +34,17 @@ function App() {
           dispatch(favoriteProducts(data));
       }
     };
-
+    const updateCarts = async()=>{
+      const prevCarts = await localStorage.getItem("carts");
+      if(prevCarts){
+          const data = JSON.parse(prevCarts);
+          dispatch(updateCart(data));
+      }
+    };
     getCatagories();
     getData();
     updateFavorites();
+    updateCarts();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

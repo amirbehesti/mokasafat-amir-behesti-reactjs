@@ -21,6 +21,8 @@ function AddNewProduct() {
   const goBack = () => {
     navigate(-1);
   };
+
+
   const handleUrls = (e) => {
     let temp = [...urls];
     if (e.target.name === "url1") {
@@ -31,9 +33,12 @@ function AddNewProduct() {
       setUrls(temp);
     }
   };
+
+
   useEffect(() => {
     dispatch({ type: "IMAGES", payload: urls });
   }, [urls]);
+
 
   const handleActions = (e) => {
     setError(false);
@@ -67,6 +72,7 @@ function AddNewProduct() {
     }
   };
 
+
   const validate = () => {
     return (
       !isNaN(state.price) &&
@@ -81,6 +87,8 @@ function AddNewProduct() {
       !isNaN(state.stock)
     );
   };
+
+
 
   const newProduct = async () => {
     setError(false);
@@ -105,6 +113,9 @@ function AddNewProduct() {
     }
   };
 
+
+
+  
   return (
     <>
       <>
